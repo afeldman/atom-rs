@@ -1,0 +1,22 @@
+[package]
+name = "atoms-validation"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Cross-crate scientific validation and regression tests"
+publish = false
+
+[lib]
+name = "atoms_validation"
+path = "src/lib.rs"
+
+[dependencies]
+atoms-core = { path = "../../crates/atoms-core" }
+atoms-numerics = { path = "../../crates/atoms-numerics" }
+atoms-orbitals = { path = "../../crates/atoms-orbitals" }
+atoms-io = { path = "../../crates/atoms-io" }
+nalgebra = { workspace = true }
+num-complex = { workspace = true }
+serde_json = { workspace = true }

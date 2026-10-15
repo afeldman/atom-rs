@@ -5,7 +5,7 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Hydrogen atomic orbitals (wavefunctions, densities)"
+description = "Hydrogen-like wavefunctions, densities, and volumetric evaluation"
 
 [lib]
 name = "atoms_orbitals"
@@ -14,3 +14,7 @@ path = "src/lib.rs"
 [dependencies]
 serde = { workspace = true }
 nalgebra = { workspace = true }
+num-complex = { workspace = true }
+rayon = { workspace = true }
+atoms-core = { path = "../atoms-core" }
+atoms-numerics = { path = "../atoms-numerics" }

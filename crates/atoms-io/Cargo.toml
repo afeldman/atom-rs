@@ -5,7 +5,7 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Serialization formats (XYZ, JSON, NumPy, HDF5)"
+description = "Documented serialisation and export interfaces"
 
 [lib]
 name = "atoms_io"
@@ -13,3 +13,4 @@ path = "src/lib.rs"
 
 [dependencies]
 serde = { workspace = true }
+serde_json = { workspace = true }

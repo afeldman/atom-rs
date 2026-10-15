@@ -1,0 +1,13 @@
+/target
+**/*.rs.bk
+*.pdb
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Editors / OS
+.DS_Store
+.idea/
+*.swp

@@ -5,20 +5,23 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "PyO3 Python bindings for atoms library"
+description = "PyO3 Python bindings for the atoms library (M2)"
 
 [lib]
 name = "atoms_python"
 path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 serde = { workspace = true }
-pyo3 = { workspace = true, features = ["extension-module"] }
 nalgebra = { workspace = true }
 atoms-core = { path = "../atoms-core" }
-atoms-numerics = { path = "../atoms-numerics", optional = true }
-atoms-orbitals = { path = "../atoms-orbitals", optional = true }
+atoms-orbitals = { path = "../atoms-orbitals" }
+
+# PyO3 is behind a feature so that `cargo test --workspace` does not require a
+# Python toolchain. The extension module is built with `--features python`.
+pyo3 = { workspace = true, optional = true }
 
 [features]
 default = []
-full = ["atoms-numerics", "atoms-orbitals"]
+python = ["dep:pyo3"]

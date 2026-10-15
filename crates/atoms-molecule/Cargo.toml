@@ -12,6 +12,7 @@ name = "atoms_molecule"
 path = "src/lib.rs"
 
 [dependencies]
-
-[dependencies]
-atoms-core = { path = "../../crates/atoms-core" }
+serde = { workspace = true }
+nalgebra = { workspace = true }
+atoms-core = { path = "../atoms-core" }
+atoms-interactions = { path = "../atoms-interactions" }

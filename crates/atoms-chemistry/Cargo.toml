@@ -5,13 +5,13 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Electronic structure solvers (Hartree-Fock, DFT - M3+)"
+description = "Electronic structure solvers (Hartree-Fock, DFT - M4+)"
 
 [lib]
 name = "atoms_chemistry"
 path = "src/lib.rs"
 
 [dependencies]
-
-[dependencies]
-atoms-core = { path = "../../crates/atoms-core" }
+serde = { workspace = true }
+nalgebra = { workspace = true }
+atoms-core = { path = "../atoms-core" }

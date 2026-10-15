@@ -6,13 +6,15 @@ members = [
     "crates/atoms-numerics",
     "crates/atoms-orbitals",
     "crates/atoms-interactions",
+    "crates/atoms-io",
     "crates/atoms-molecule",
     "crates/atoms-chemistry",
     "crates/atoms-gpu",
     "crates/atoms-render",
-    "crates/atoms-io",
     "crates/atoms-python",
     "apps/atoms-viewer",
+    "tests/validation",
+    "benchmarks",
 ]
 resolver = "2"
 
@@ -23,16 +25,36 @@ license = "MIT"
 repository = "https://github.com/anton-feldmann/atom-rs"
 authors = ["Anton Feldmann <anton@nousresearch.com>"]
 
-# Minimal workspace-level dependencies for cross-crate compilation
 [workspace.dependencies]
+# Serialisation
 serde = { version = "1.0", features = ["derive"] }
-nalgebra = "0.32"
+serde_json = "1.0"
+
+# Linear algebra
+nalgebra = { version = "0.32", features = ["serde-serialize"] }
+
+# Complex numbers
+num-complex = "0.4"
+
+# Parallel iteration (CPU kernels)
 rayon = "1.8"
+
+# Optional GPU backends (enabled per crate via features)
 wgpu = "0.20"
+
+# Optional Python bindings (enabled per crate via features)
 pyo3 = { version = "0.21", features = ["extension-module"] }
+
+# Optional GUI (enabled per crate via features)
 eframe = "0.28"
 egui_extras = "0.28"
 
 [profile.release]
+lto = true
+codegen-units = 1
+
+# Benchmarks must be comparable across runs: keep debug assertions on for the
+# correctness of the reference implementations, and optimise the profile fully.
+[profile.bench]
 lto = true
 codegen-units = 1

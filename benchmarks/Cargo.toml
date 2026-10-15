@@ -1,0 +1,20 @@
+[package]
+name = "atoms-benchmarks"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Reproducible CPU benchmarks for the atoms-rs kernels"
+publish = false
+
+[[bin]]
+name = "atoms-bench"
+path = "src/main.rs"
+
+[dependencies]
+atoms-core = { path = "../crates/atoms-core" }
+atoms-numerics = { path = "../crates/atoms-numerics" }
+atoms-orbitals = { path = "../crates/atoms-orbitals" }
+nalgebra = { workspace = true }
+rayon = { workspace = true }
