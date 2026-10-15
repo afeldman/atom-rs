@@ -1,12 +1,16 @@
 [package]
 name = "atoms-core"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Hydrogen atom quantum mechanics core library"
 
+[lib]
+name = "atoms_core"
+path = "src/lib.rs"
+
 [dependencies]
 serde = { workspace = true }
-nalgebra.workspace = true
+nalgebra = { workspace = true }

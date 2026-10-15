@@ -1,12 +1,15 @@
 [package]
 name = "atoms-io"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Serialization formats (XYZ, JSON, NumPy, HDF5)"
 
+[lib]
+name = "atoms_io"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-serde_json.workspace = true
+serde = { workspace = true }

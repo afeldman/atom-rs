@@ -8,9 +8,6 @@
 //! 
 //! All calculations are validated against analytical solutions.
 
-pub mod units;
-pub mod coordinates;
 pub mod hydrogen_energy;
-pub mod radial_wavefunction;
-pub mod spherical_harmonics;
-pub mod wavefunction;
+pub mod spatial_grid;
+pub mod units;

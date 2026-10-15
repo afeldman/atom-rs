@@ -1,44 +1,35 @@
 # atoms-rs — Quantum Physics & Molecular Research Framework
 
-[package]
-name = "atom-rs"
-version = "0.1.0"
-edition = "2021"
-authors = ["Anton Feldmann <anton@nousresearch.com>"]
-license = "MIT"
-repository = "https://github.com/anton-feldmann/atom-rs"
-description = "GPU-accelerated quantum physics and molecular research framework in Rust"
-keywords = ["quantum", "physics", "molecular", "orbitals", "wgpu", "pyo3"]
-categories = ["science", "graphics"]
-
 [workspace]
 members = [
-    "crates/*",
-    "apps/*",
+    "crates/atoms-core",
+    "crates/atoms-numerics",
+    "crates/atoms-orbitals",
+    "crates/atoms-interactions",
+    "crates/atoms-molecule",
+    "crates/atoms-chemistry",
+    "crates/atoms-gpu",
+    "crates/atoms-render",
+    "crates/atoms-io",
+    "crates/atoms-python",
+    "apps/atoms-viewer",
 ]
 resolver = "2"
 
 [workspace.package]
+version = "0.1.0"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/anton-feldmann/atom-rs"
 authors = ["Anton Feldmann <anton@nousresearch.com>"]
 
+# Minimal workspace-level dependencies for cross-crate compilation
 [workspace.dependencies]
-# Physics and numerics
 serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-rayon = "1.8"
 nalgebra = "0.32"
-
-# GPU rendering
-wgpu = { version = "0.20", optional = true }
-
-# Python bindings
-pyo3 = { version = "0.21", features = ["extension-module"], optional = true }
-numpy = { version = "0.21", features = ["derive"], optional = true }
-
-# GUI (egui)
+rayon = "1.8"
+wgpu = "0.20"
+pyo3 = { version = "0.21", features = ["extension-module"] }
 eframe = "0.28"
 egui_extras = "0.28"
 

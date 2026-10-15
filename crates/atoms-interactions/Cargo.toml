@@ -1,12 +1,16 @@
 [package]
 name = "atoms-interactions"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Interatomic interaction potentials (Lennard-Jones, Coulomb)"
 
+[lib]
+name = "atoms_interactions"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-nalgebra.workspace = true
+serde = { workspace = true }
+nalgebra = { workspace = true }

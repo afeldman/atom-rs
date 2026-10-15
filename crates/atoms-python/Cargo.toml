@@ -1,17 +1,24 @@
 [package]
 name = "atoms-python"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "PyO3 Python bindings for atoms library"
 
-[dependencies]
-serde.workspace = true
-pyo3 = { workspace = true, features = ["extension-module"] }
-numpy = { workspace = true, features = ["derive"] }
+[lib]
+name = "atoms_python"
+path = "src/lib.rs"
 
+[dependencies]
+serde = { workspace = true }
+pyo3 = { workspace = true, features = ["extension-module"] }
+nalgebra = { workspace = true }
 atoms-core = { path = "../atoms-core" }
-atoms-numerics = { path = "../atoms-numerics" }
-atoms-orbitals = { path = "../atoms-orbitals" }
+atoms-numerics = { path = "../atoms-numerics", optional = true }
+atoms-orbitals = { path = "../atoms-orbitals", optional = true }
+
+[features]
+default = []
+full = ["atoms-numerics", "atoms-orbitals"]

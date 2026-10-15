@@ -1,13 +1,17 @@
 [package]
 name = "atoms-numerics"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Numerical methods for quantum calculations (integration, sampling)"
 
+[lib]
+name = "atoms_numerics"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-nalgebra.workspace = true
-rayon.workspace = true
+serde = { workspace = true }
+nalgebra = { workspace = true }
+rayon = { workspace = true }

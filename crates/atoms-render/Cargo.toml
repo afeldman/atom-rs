@@ -1,18 +1,22 @@
 [package]
 name = "atoms-render"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "GPU rendering (wgpu shaders, geometry)"
 
+[lib]
+name = "atoms_render"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-nalgebra.workspace = true
+serde = { workspace = true }
+nalgebra = { workspace = true }
 
 # Optional GPU backend
-wgpu = { version = "0.20", optional = true }
+wgpu = { version = "0.20", optional = true, default-features = false }
 
 [features]
 default = []

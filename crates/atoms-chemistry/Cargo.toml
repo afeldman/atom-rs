@@ -1,13 +1,17 @@
 [package]
 name = "atoms-chemistry"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Electronic structure solvers (Hartree-Fock, DFT - M3+)"
 
+[lib]
+name = "atoms_chemistry"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-nalgebra.workspace = true
-atoms-core = { path = "../../atoms-core" }
+
+[dependencies]
+atoms-core = { path = "../../crates/atoms-core" }

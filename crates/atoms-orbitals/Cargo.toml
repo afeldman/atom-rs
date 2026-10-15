@@ -1,12 +1,16 @@
 [package]
 name = "atoms-orbitals"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Hydrogen atomic orbitals (wavefunctions, densities)"
 
+[lib]
+name = "atoms_orbitals"
+path = "src/lib.rs"
+
 [dependencies]
-serde.workspace = true
-nalgebra.workspace = true
+serde = { workspace = true }
+nalgebra = { workspace = true }
