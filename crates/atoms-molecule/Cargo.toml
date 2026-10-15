@@ -1,0 +1,14 @@
+[package]
+name = "atoms-molecule"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Molecular geometry and property calculations"
+
+[dependencies]
+serde.workspace = true
+nalgebra.workspace = true
+atoms-core = { path = "../../atoms-core" }
+atoms-interactions = { path = "../../atoms-interactions" }

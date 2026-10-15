@@ -1,0 +1,12 @@
+[package]
+name = "atoms-interactions"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Interatomic interaction potentials (Lennard-Jones, Coulomb)"
+
+[dependencies]
+serde.workspace = true
+nalgebra.workspace = true

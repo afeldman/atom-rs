@@ -1,0 +1,23 @@
+[package]
+name = "atoms-viewer"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Interactive 3D orbital/molecular viewer application"
+
+[dependencies]
+serde.workspace = true
+eframe.workspace = true
+egui_extras.workspace = true
+atoms-core = { path = "../../crates/atoms-core" }
+atoms-orbitals = { path = "../../crates/atoms-orbitals" }
+atoms-molecule = { path = "../../crates/atoms-molecule" }
+
+# Optional GPU rendering
+wgpu = { version = "0.20", optional = true }
+
+[features]
+default = []
+wgpu = ["dep:wgpu"]

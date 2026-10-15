@@ -1,0 +1,17 @@
+[package]
+name = "atoms-python"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "PyO3 Python bindings for atoms library"
+
+[dependencies]
+serde.workspace = true
+pyo3 = { workspace = true, features = ["extension-module"] }
+numpy = { workspace = true, features = ["derive"] }
+
+atoms-core = { path = "../atoms-core" }
+atoms-numerics = { path = "../atoms-numerics" }
+atoms-orbitals = { path = "../atoms-orbitals" }

@@ -1,0 +1,13 @@
+[package]
+name = "atoms-numerics"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Numerical methods for quantum calculations (integration, sampling)"
+
+[dependencies]
+serde.workspace = true
+nalgebra.workspace = true
+rayon.workspace = true
