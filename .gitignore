@@ -7,6 +7,16 @@
 __pycache__/
 *.py[cod]
 
+# Built extension modules: maturin places the compiled library next to the
+# Python sources for an editable install. Never commit it.
+crates/atoms-python/python/atoms/*.so
+crates/atoms-python/python/atoms/*.pyd
+crates/atoms-python/python/atoms/*.dylib
+*.egg-info/
+
+# Generated example output
+python/examples/output/
+
 # Editors / OS
 .DS_Store
 .idea/

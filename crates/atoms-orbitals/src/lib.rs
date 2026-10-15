@@ -59,6 +59,7 @@ pub mod density;
 pub mod expectations;
 pub mod quantum_numbers;
 pub mod radial;
+pub mod sampling;
 pub mod spherical_harmonics;
 pub mod wavefunction;
 
@@ -68,6 +69,7 @@ pub use radial::{
     radial_probability_density, radial_probability_density_z, radial_wavefunction,
     radial_wavefunction_z,
 };
+pub use sampling::{OrbitalSampler, SamplerError};
 pub use spherical_harmonics::{
     spherical_harmonic, spherical_harmonic_abs_squared, SphericalHarmonic,
 };

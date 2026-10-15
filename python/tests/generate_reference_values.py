@@ -52,8 +52,14 @@ def radial_wavefunction(n: int, l: int, r: np.ndarray | float) -> np.ndarray:
 def spherical_harmonic(l: int, m: int, theta: float, phi: float) -> complex:
     """Y_l^m(theta, phi) with theta = polar angle from +z, phi = azimuth from +x.
 
-    scipy.special.sph_harm takes (m, n, theta_azimuthal, phi_polar).
+    SciPy renamed and re-ordered this function: ``sph_harm_y(n, m, theta, phi)``
+    is the current spelling (polar angle first), replacing the confusing
+    ``sph_harm(m, n, theta_azimuthal, phi_polar)``. Both are handled so that the
+    generator runs against either SciPy generation.
     """
+    if hasattr(special, "sph_harm_y"):
+        return complex(special.sph_harm_y(l, m, theta, phi))
+    # Pre-1.15 SciPy: signature is (m, n, theta_azimuthal, phi_polar).
     return complex(special.sph_harm(m, l, phi, theta))
 
 

@@ -43,7 +43,8 @@ rayon = "1.8"
 wgpu = "0.20"
 
 # Optional Python bindings (enabled per crate via features)
-pyo3 = { version = "0.21", features = ["extension-module"] }
+pyo3 = { version = "0.30", features = ["extension-module"] }
+numpy = "0.30"
 
 # Optional GUI (enabled per crate via features)
 eframe = "0.28"
