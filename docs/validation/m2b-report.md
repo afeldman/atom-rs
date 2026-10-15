@@ -13,9 +13,9 @@ Artefacts referenced below are committed under
 
 | item | value |
 |---|---|
-| implementation commit | *(see the commit that adds this report)* |
+| implementation commit | **`c4ff579`** — "M2-B: portable wgpu rendering foundation" |
 | previous milestone commit | `421c19f` (M2-A) |
-| working tree | clean at the time of writing; the file list is in §2 |
+| working tree | clean (`git status --short` empty) after the implementation commit |
 | feature flags needed for the GPU path | `atoms-render/gpu` only |
 
 The GPU path is behind an off-by-default feature, so the default workspace build
