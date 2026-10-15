@@ -85,10 +85,14 @@ fn workspace_declares_the_planned_members() {
 }
 
 /// Crates that are declared but not implemented must say so in their own source,
-/// so that no reader can mistake a placeholder for a working model.
+/// so that no reader can mistake a placeholder for a working model — and crates
+/// that *are* implemented must not claim to be placeholders.
+///
+/// `atoms-render` moved from the first list to the second in M2-B; this test is
+/// what forced that bookkeeping to be explicit rather than left stale.
 #[test]
 fn unimplemented_crates_declare_their_status() {
-    let stubs: [(&str, &str, &str); 5] = [
+    let stubs: [(&str, &str, &str); 4] = [
         (
             "atoms-interactions",
             include_str!("../../../crates/atoms-interactions/src/lib.rs"),
@@ -109,11 +113,6 @@ fn unimplemented_crates_declare_their_status() {
             include_str!("../../../crates/atoms-gpu/src/lib.rs"),
             "M5",
         ),
-        (
-            "atoms-render",
-            include_str!("../../../crates/atoms-render/src/lib.rs"),
-            "M2",
-        ),
     ];
     for (name, source, milestone) in stubs {
         assert!(
@@ -123,6 +122,35 @@ fn unimplemented_crates_declare_their_status() {
         assert!(
             source.contains(milestone),
             "{name} must name its target milestone ({milestone})"
+        );
+    }
+
+    let implemented: [(&str, &str); 5] = [
+        (
+            "atoms-core",
+            include_str!("../../../crates/atoms-core/src/lib.rs"),
+        ),
+        (
+            "atoms-numerics",
+            include_str!("../../../crates/atoms-numerics/src/lib.rs"),
+        ),
+        (
+            "atoms-orbitals",
+            include_str!("../../../crates/atoms-orbitals/src/lib.rs"),
+        ),
+        (
+            "atoms-render",
+            include_str!("../../../crates/atoms-render/src/lib.rs"),
+        ),
+        (
+            "atoms-python",
+            include_str!("../../../crates/atoms-python/src/lib.rs"),
+        ),
+    ];
+    for (name, source) in implemented {
+        assert!(
+            !source.contains("not yet implemented"),
+            "{name} is implemented and must not declare itself a stub"
         );
     }
 }

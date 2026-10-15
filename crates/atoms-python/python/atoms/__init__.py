@@ -10,7 +10,8 @@ Conventions
   lengths in bohr, energies in hartree, probability density in ``bohr^-3``,
   radial probability density in ``bohr^-1``, angular probability density in
   ``sr^-1``. Pass ``unit=`` where an alternative is accepted, and use
-  :mod:`atoms.units` to convert results.
+  :mod:`atoms.units` to convert results. A grid's ``unit`` argument affects only
+  the grid's own geometry; it never changes the unit of a computed quantity.
 * **Angles.** ``theta`` is the polar angle measured from ``+z`` in ``[0, pi]``;
   ``phi`` is the azimuth measured from ``+x`` towards ``+y`` in ``[0, 2 pi)``.
   This is the physics convention, matching ``scipy.special.sph_harm_y``.
@@ -28,12 +29,18 @@ Scope
 Only one-electron, unscreened hydrogenic states are implemented. ``Z > 1`` gives
 the unscreened hydrogenic approximation. No molecular electronic-structure
 method, basis set, or molecular property is provided.
+
+Not present yet
+---------------
+There is no viewer in this package. ``atoms.viewer`` is deliberately **absent**
+rather than present as a stub that raises, so that nothing here can be mistaken
+for viewer functionality. The interactive viewer is milestone M2-C; see
+``docs/python-api.md``.
 """
 
 from __future__ import annotations
 
 from types import SimpleNamespace
-from typing import Any
 
 from ._atoms import (
     Atom,
@@ -69,7 +76,6 @@ __all__ = [
     "energy_level",
     "reduced_mass_ratio",
     "harmonics",
-    "viewer",
     "__version__",
 ]
 
@@ -108,23 +114,6 @@ sampling = SimpleNamespace(
     positions=sample_positions,
 )
 
-
-def _viewer_show(
-    orbital: Orbital | None = None,
-    quantity: str = "probability_density",
-    **kwargs: Any,
-) -> None:
-    raise NotImplementedError(
-        "atoms.viewer.show is not implemented yet. The interactive viewer is "
-        "scheduled for milestone M2-C; until then use "
-        "Orbital.probability_density(grid) and plot the array directly."
-    )
-
-
-#: The interactive viewer entry point.
-#:
-#: `show(orbital=..., quantity=...)` is the frozen signature, but the function
-#: currently raises `NotImplementedError`: no viewer exists yet. It is present
-#: so that the intended API is visible and callers fail loudly rather than
-#: silently doing nothing.
-viewer = SimpleNamespace(show=_viewer_show)
+# There is intentionally no `viewer` attribute. The interactive viewer is
+# milestone M2-C; exposing a name that raises `NotImplementedError` would present
+# a stub as viewer functionality, so the name is absent until the viewer exists.

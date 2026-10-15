@@ -71,9 +71,11 @@ pub fn probability_density_numpy_order(
 }
 
 /// Index into a buffer produced by [`probability_density_numpy_order`].
+///
+/// Delegates to `atoms_core::spatial_grid::public_linear_index`, the workspace's
+/// single definition of the public array order.
 pub fn numpy_linear_index(i: usize, j: usize, k: usize, counts: [usize; 3]) -> usize {
-    let [_nx, ny, nz] = counts;
-    (i * ny + j) * nz + k
+    atoms_core::spatial_grid::public_linear_index(i, j, k, counts)
 }
 
 #[cfg(test)]

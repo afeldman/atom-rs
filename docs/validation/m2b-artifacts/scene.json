@@ -1,0 +1,23 @@
+{
+  "scene": "hydrogen 2p_z probability density",
+  "quantum_numbers": {"n": 2, "l": 1, "m": 0},
+  "units": {"length": "bohr", "density": "bohr^-3", "energy": "hartree"},
+  "grid": {"points": 141, "extent_bohr": 12, "spacing_bohr": 0.1714285714},
+  "origin_bohr": [-12, -12, -12],
+  "array_order": "public: index(i,j,k) = (i*ny + j)*nz + k, k fastest",
+  "max_density": 5.3805075586e-3,
+  "integrated_probability": 0.9979813939,
+  "max_relative_f32_error": 1.165950e-6,
+  "transfer_function": {"vmax": 5.3805075586e-3, "compression": 20.0},
+  "timings_s": {"field_build": 0.561508, "convert": 0.045723, "cpu_three_images": 0.096061},
+  "backend": "backend:            metal | adapter:            Apple M4 Max | device type:        integrated-gpu | driver:              () | vendor/device id:   0x0/0x0 | max texture 2d/3d:  8192/2048 | max buffer:         268435456 bytes | max storage binding:134217728 bytes",
+  "images": [
+    {"file": "cpu_mip_y.png", "backend": "cpu", "bytes": 79738, "note": "maximum-intensity projection along y: the two 2p_z lobes"},
+    {"file": "cpu_slice_z_plus2.png", "backend": "cpu", "bytes": 79738, "note": "slice at z = +2 bohr, through the density maximum"},
+    {"file": "cpu_slice_nodal_plane.png", "backend": "cpu", "bytes": 79738, "note": "slice at z = 0, the nodal plane: must be entirely black"},
+    {"file": "gpu_mip_y.png", "backend": "metal", "bytes": 79738, "note": "maximum-intensity projection along y, rendered on the GPU"},
+    {"file": "gpu_slice_z_plus2.png", "backend": "metal", "bytes": 79738, "note": "slice at z = +2 bohr, rendered on the GPU"},
+    {"file": "gpu_slice_nodal_plane.png", "backend": "metal", "bytes": 79738, "note": "nodal plane, rendered on the GPU"}
+  ],
+  "software_version": "0.1.0"
+}

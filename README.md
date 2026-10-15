@@ -1,11 +1,12 @@
 # atoms-rs
 
 A scientifically validated quantum physics and molecular research framework in
-Rust, with a Python scripting interface and a planned GPU-accelerated viewer.
+Rust, with a Python scripting interface and a planned interactive 3D viewer.
 
-**Current status: M2-A complete** (Python bindings). The Rust core (M1) and the
-Python API are implemented and tested. The GPU renderer and the desktop viewer
-are **not implemented** — see [Status](#status).
+**Current status: M2-B complete** (portable `wgpu` rendering foundation). The Rust
+core (M1), the Python API (M2-A) and the rendering foundation (M2-B) are implemented
+and tested. There is **no interactive viewer** and **no GPU compute kernel** — see
+[Status](#status) and `docs/rendering.md`.
 
 ```text
 cargo test --workspace                   ->  183 passed; 0 failed
@@ -111,7 +112,7 @@ normalisation, and sampler moments against quadrature.
 | M0 | repository and architecture audit | complete |
 | M1 | validated atomic core | complete — `docs/validation/m1-report.md` |
 | M2-A | Python bindings and NumPy transfer | **complete** |
-| M2-B | portable `wgpu` rendering foundation | not started |
+| M2-B | portable `wgpu` rendering foundation | **complete** — `docs/rendering.md` |
 | M2-C | interactive orbital explorer | not started |
 | M2-D | CI and platform validation | not started |
 | M3 | interactions and molecular geometry | not started |
@@ -127,16 +128,24 @@ its target milestone and its contract in its own source:
 | `atoms-molecule` | M3 | placeholder |
 | `atoms-chemistry` | M4 | placeholder |
 | `atoms-gpu` | M5 | placeholder |
-| `atoms-render` | M2-B | placeholder |
+| `atoms-render` | M2-B | **implemented** (CPU reference + `wgpu` slice/MIP renderer) |
 | `apps/atoms-viewer` | M2-C | prints status and exits |
 
-`atoms.viewer.show(...)` exists in the Python API but raises
-`NotImplementedError`; the viewer is M2-C.
+There is **no `atoms.viewer` module**. It is planned for M2-C and will appear when
+an interactive viewer exists; exposing a `NotImplementedError` stub would present a
+placeholder as functionality, so the name is absent and a test asserts that.
+
+The **rendering foundation** (M2-B) is implemented: a portable `wgpu` context with
+typed failures, volume upload, slice and maximum-intensity-projection rendering, a
+CPU reference implementation, and a bit-identical GPU/CPU agreement test on a real
+2p_z density. It renders offscreen to a texture it reads back; there is no camera,
+no window, and no interactivity — those are M2-C. See `docs/rendering.md`.
 
 **No molecular property is computed anywhere in this workspace.** No total
 energy, binding energy, dipole moment, or density for any molecule. No
-Hartree-Fock, no DFT, no basis sets. No GPU or CUDA kernel exists, and no GPU
-performance claim is made.
+Hartree-Fock, no DFT, no basis sets. **No GPU compute kernel exists** — the GPU is
+used for rendering only, and no GPU performance claim is made about any
+calculation.
 
 ## Layout
 
@@ -151,7 +160,7 @@ atoms-rs/
 │   ├── atoms-molecule/      # M3 stub
 │   ├── atoms-chemistry/     # M4 stub
 │   ├── atoms-gpu/           # M5 stub
-│   ├── atoms-render/        # M2-B stub
+│   ├── atoms-render/        # CPU reference + wgpu slice/MIP renderer
 │   └── atoms-python/        # PyO3 extension module `atoms._atoms`
 │       ├── src/             #   bindings + NumPy ordering (Rust-tested)
 │       ├── python/atoms/    #   Python front end (docstrings, namespaces)
@@ -165,6 +174,8 @@ atoms-rs/
 └── docs/
     ├── architecture/        # workspace design
     ├── physics/             # normative conventions
+    ├── numerical-methods/   # quadrature, sampling
+    ├── rendering.md         # rendering architecture, interface, backends
     ├── numerical-methods/   # methods and measured accuracy
     ├── python-api.md        # Python contract
     └── validation/          # reference data, benchmarks, milestone reports

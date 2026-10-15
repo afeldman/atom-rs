@@ -5,19 +5,31 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "GPU rendering (wgpu shaders, geometry)"
+description = "Portable GPU rendering foundation for volumetric scientific data"
 
 [lib]
 name = "atoms_render"
 path = "src/lib.rs"
 
 [dependencies]
-serde = { workspace = true }
-nalgebra = { workspace = true }
+# Deliberately empty for the default (CPU) build. This crate must not depend on
+# any physics crate: the data it consumes arrives through the neutral
+# `VolumeData` interface. See the crate documentation.
+wgpu = { workspace = true, optional = true }
+bytemuck = { version = "1", features = ["derive"], optional = true }
+pollster = { version = "1", optional = true }
 
-# Optional GPU backend
-wgpu = { version = "0.20", optional = true, default-features = false }
+[dev-dependencies]
+# Physics crates, used ONLY by this crate's tests and examples so that the
+# rendering pipeline can be exercised with real scientific data. Cargo does not
+# propagate dev-dependencies, so the library's own dependency graph stays free of
+# any physics coupling.
+atoms-core = { path = "../atoms-core" }
+atoms-orbitals = { path = "../atoms-orbitals" }
+nalgebra = { workspace = true }
 
 [features]
 default = []
-wgpu = ["dep:wgpu"]
+# The portable GPU path (Metal / Vulkan / DX12 via wgpu). Off by default so that
+# the workspace builds and tests without a graphics stack.
+gpu = ["dep:wgpu", "dep:bytemuck", "dep:pollster"]

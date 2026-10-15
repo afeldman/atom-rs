@@ -30,13 +30,16 @@ def test_documented_names_are_present():
         assert hasattr(atoms, name), name
 
 
-def test_viewer_is_present_but_declares_it_is_unimplemented():
-    # The signature is frozen now, the implementation is M2-C. It must fail
-    # loudly rather than silently doing nothing.
-    with pytest.raises(NotImplementedError) as exc:
-        atoms.viewer.show(orbital=atoms.Atom.hydrogen().orbital(2, 1, 0),
-                          quantity="probability_density")
-    assert "M2-C" in str(exc.value)
+def test_no_viewer_is_exposed_before_it_exists():
+    """The viewer is M2-C; the name must be absent, not a raising stub.
+
+    A `NotImplementedError` placeholder would present a stub as viewer
+    functionality, so `atoms.viewer` is deliberately not defined at all. This
+    test is the enforcement of that decision: if someone adds a placeholder, it
+    fails and forces the question rather than quietly shipping.
+    """
+    assert not hasattr(atoms, "viewer")
+    assert "viewer" not in atoms.__all__
 
 
 # ---------------------------------------------------------------------------
@@ -458,10 +461,44 @@ def test_sample_radial_shape_dtype_and_determinism():
     assert r.shape == (5000,)
     assert r.dtype == np.float64
     assert np.all(r >= 0.0)
-    again = atoms.sample_radial(o, 5000, seed=20261015)
-    assert np.array_equal(r, again)
-    other = atoms.sample_radial(o, 5000, seed=20261016)
-    assert not np.array_equal(r, other)
+
+
+def test_sampling_is_reproducible_and_seeds_are_not_ignored():
+    """Sampling must be a pure function of (seed, inputs).
+
+    Two statements are checked for both samplers:
+
+    * the same seed and the same inputs give bit-identical output;
+    * a different seed gives *different* output, i.e. the seed is not silently
+      ignored.
+
+    The second statement is only a check that the seed reaches the generator. It
+    does not assert that two seeds can never produce an identical sample set —
+    for a small `n_samples` a collision would be legitimate, so the arrays are
+    compared over a sample count large enough that equality would indicate a bug
+    rather than chance (5000 independent continuous draws).
+    """
+    o = atoms.Atom.hydrogen().orbital(2, 1, 0)
+
+    for name, call in (
+        ("radial", lambda seed: atoms.sample_radial(o, 5000, seed=seed)),
+        ("positions", lambda seed: atoms.sample_positions(o, 5000, seed=seed)),
+    ):
+        a = call(20261015)
+        b = call(20261015)
+        assert np.array_equal(a, b), f"{name}: same seed did not reproduce"
+
+        c = call(20261016)
+        assert not np.array_equal(a, c), f"{name}: the seed was ignored"
+
+        # the default seed is a fixed value, not a random one
+        assert np.array_equal(call(0), call(0)), f"{name}: default seed not stable"
+
+    # inputs matter as well as the seed: a different orbital gives different radii
+    o2 = atoms.Atom.hydrogen().orbital(3, 1, 0)
+    assert not np.array_equal(
+        atoms.sample_radial(o, 5000, seed=1), atoms.sample_radial(o2, 5000, seed=1)
+    )
 
 
 def test_sample_radial_matches_analytic_moments():

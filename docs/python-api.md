@@ -101,7 +101,7 @@ units. `P(0) = 0` for *every* orbital, including `s` orbitals, while
 | `n_samples == 0` | `ValueError` |
 | profile function given a non-array, non-float | `TypeError`, naming the received type |
 | `Orbital`/`Grid3D` passed where the other is expected | `TypeError` |
-| `atoms.viewer.show(...)` | `NotImplementedError` (viewer is M2-C) |
+| `atoms.viewer` (any attribute access) | `AttributeError` — the module does not exist yet |
 
 No Rust panic crosses the FFI boundary.
 
@@ -184,7 +184,11 @@ tested (`crates/atoms-orbitals/src/sampling.rs`).
   no molecular property of any kind.
 * Complex harmonics are the primary representation. Real orbitals such as `p_x`
   are **not** provided and are not silently substituted.
-* `atoms.viewer` exists but raises `NotImplementedError`; the viewer is M2-C.
+* **There is no `atoms.viewer` module.** It is planned for M2-C and will be added
+  when an interactive viewer actually exists; until then neither the name nor a
+  raising stub is exposed, so nothing can mistake a placeholder for functionality.
+  `test_no_viewer_is_exposed_before_it_exists` asserts the absence, and
+  `docs/rendering.md` records what the rendering foundation does provide.
 * No type stubs (`.pyi`) ship yet. `py.typed` is present as a placeholder;
   docstrings are complete, so `help(atoms.Orbital)` is accurate.
 

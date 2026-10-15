@@ -17,7 +17,7 @@ nalgebra = { workspace = true }
 rayon = { workspace = true }
 
 # Optional GPU backends
-wgpu = { version = "0.20", optional = true, default-features = false }
+wgpu = { workspace = true, optional = true }
 cudarc = { version = "0.11", optional = true, default-features = false }
 
 [features]

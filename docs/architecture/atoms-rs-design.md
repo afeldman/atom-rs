@@ -23,6 +23,13 @@
 
 ## 1. Reference Repository Analysis Summary
 
+> **Status note (added after M2-B, 2026):** the table below describes the *intent*
+> for each original source file. For what actually exists today, and for measured
+> performance, see `docs/rendering.md` and the milestone reports in
+> `docs/validation/`. In particular the word "GPU-accelerated" in this M0 planning
+> document is a design goal, not a measured result: as of M2-B the GPU rendering
+> path is validated but has not been measured as faster than the CPU reference.
+
 ### Functionality Ported (Adapted, Not Reproduced):
 
 | Original | atoms-rs Approach |

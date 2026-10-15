@@ -39,8 +39,10 @@ num-complex = "0.4"
 # Parallel iteration (CPU kernels)
 rayon = "1.8"
 
-# Optional GPU backends (enabled per crate via features)
-wgpu = "0.20"
+# Optional GPU backends (enabled per crate via features).
+# Canonical version for the whole workspace: the renderer and any future compute
+# kernels must not pull in two different `wgpu` generations.
+wgpu = "30"
 
 # Optional Python bindings (enabled per crate via features)
 pyo3 = { version = "0.30", features = ["extension-module"] }

@@ -25,4 +25,4 @@ pub mod units;
 pub use atom::{Atom, AtomicSpecies};
 pub use coordinates::{cartesian_to_spherical, spherical_to_cartesian, SphericalPoint};
 pub use hydrogen_energy::{reduced_mass_ratio, EnergyLevel};
-pub use spatial_grid::{GridError, SpatialGrid3D};
+pub use spatial_grid::{public_linear_index, GridError, SpatialGrid3D};
